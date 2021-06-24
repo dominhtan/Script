@@ -17,7 +17,7 @@ function bkup {
         fi
 }
 function db {
-        mysqldump -u 5nC2zo7rLBG9z4 -p5nC2zo7rLBG9z4 CvBoIvTfPQVvlr > /home/fbkup/$file_name.sql
+        mysqldump -u 5nC2zo7rLBG9z4 -p5nC2zo7rLBG9z4 CvBoIvTfPQVvlr > /home/fbkup/$zbkup.sql
 
         if (`$? -eq 0`); then
                 echo " Thành công, đang chuyển db > /home/fbkup ..."
