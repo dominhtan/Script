@@ -1,12 +1,13 @@
 #Backup website trên CyberPanel
 #!/bin/bash
 #mkdir -p /home/fbkup
-domain=`ls -l /home/jpsharing.net/public_html`
-ngay=$(date +%d-%m-%Y)
-file_name="backup-$ngay"
+dest="/home/fbkup"
+domain="/home/jpsharing.net/public_html/*"
+ngay="$(date +%d-%m-%Y)"
+zbkup="backup-$ngay.tar.gz"
 function bkup {
-        tar -cvf $file_name.tar $domain
-        mv $file_name.tar /home/fbkup
+        tar -czf $zbkup $domain
+        mv $zbkup $dest
         if (`$? -eq 0`); then
                 echo " Thành công, đang chuyển code > /home/fbkup ..."
         else
