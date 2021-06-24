@@ -7,9 +7,10 @@ ngay="$(date +%d-%m-%Y)"
 zbkup="backup-$ngay.tar.gz"
 function bkup {
         tar -czf $zbkup $domain
-        mv $zbkup $dest
+        
         if (`$? -eq 0`); then
                 echo " Thành công, đang chuyển code > /home/fbkup ..."
+                mv $zbkup $dest
         else
                 echo " Backup không thành công"
                         sleep 3;
