@@ -4,7 +4,7 @@ wget script.jpsharing.net/hping3.sh | sh
 ```
 ### Script Backup
 ```
-wget script.jpsharing.net/backup.sh | sh
+wget script.jpsharing.net/backup2.sh | sh
 ```
 ### Script Tools
 ```
