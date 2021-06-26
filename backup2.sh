@@ -8,7 +8,7 @@ bkup=backup-$tg
 function kiemtra {
 
         select $tenmien in $ls; do
-        if (`grep -q '/home/$ls'`); then
+        if (`/home/$ls | grep 'wp-config.php'`); then
                         echo " Danh sách website : $domain "
                 break
         else
