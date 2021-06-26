@@ -46,7 +46,6 @@ function data {
                         sleep 3;
                 exit
         fi
-EOF!!
 }
 function lchon {
         1)
