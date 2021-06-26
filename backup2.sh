@@ -38,7 +38,7 @@ function data {
                 read b
         printf "Nhập mật khẩu :"
                 read c
-        mysqldump -u $a -p$b $c > /home/bkdata2/$bkup.sql << EOF
+        mysqldump -u $a -p$b $c > /home/bkdata2/$bkup.sql
         if (`$? -eq 0`); then
                 echo " Export thành công.."
         else
