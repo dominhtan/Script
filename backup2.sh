@@ -1,16 +1,14 @@
 #!/bin/bash
 clear
-mkdir -p /home/bkdata2/
-ls=`ls -l -Ilog | awk '/^d/ {print $9}'`
+#mkdir -p /home/bkdata2/
+ls=`ls -l | awk '/^d/ {print $9}'`
 tg=$(date +%d-%m-%Y)
 bkup=backup-$tg
 
 function kiemtra {
-                PS3="Chọn tên miền cần backup: "
-                select $tenmien in $ls; 
-                do
-                if (`find /home/$ls | grep -q 'public_html'`); 
-                then
+
+        select $tenmien in $ls; do
+        if (`grep -q '/home/$ls'`); then
                         echo " Danh sách website : $domain "
                 break
         else
@@ -19,7 +17,6 @@ function kiemtra {
                 fi
                 done
         }
-        
 function bkup {
         cd $tenmien
         tar -czf $bkup.tar /home/$tenmien/public_html/*
@@ -32,15 +29,16 @@ function bkup {
                         sleep 3;
                 exit
         fi
+
 }
 function data {
         printf "Nhập username :"
                 read a
         printf "Nhập database :"
-                 read b
+                read b
         printf "Nhập mật khẩu :"
                 read c
-        mysqldump -u $a -p$b $c > /home/bkdata2/$bkup.sql
+        mysqldump -u $a -p$b $c > /home/bkdata2/$bkup.sql << EOF
         if (`$? -eq 0`); then
                 echo " Export thành công.."
         else
@@ -48,10 +46,21 @@ function data {
                         sleep 3;
                 exit
         fi
+EOF!!
+}
+function lchon {
+        1)
+        read -P "Tên miền cần backup: " chọn
+        case $chọn in
+        kiemtra
+        ;;
+        *)
+                echo "Lỗi..."; sleep 3
+        esac
 }
 while true
-do
-        kiemtra
+do  
+        lchon
         bkup
         data
 done
