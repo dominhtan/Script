@@ -47,7 +47,7 @@ opt1=("Status" "Auto" "Craft")
                                         break
                                 fi
                                 echo Restart $service now...
-                                sleep 5
+                                sleep 3
                                 systemctl start $service
                                 systemctl enable $service
                         fi
@@ -91,7 +91,7 @@ opt1=("Status" "Auto" "Craft")
                                                 systemctl enable httpd.service
                                         fi
                         else
-                                echo " Error...404 "
+                                echo " Error 404...Not found WebService "
                                 break
                         fi
                 ;;
