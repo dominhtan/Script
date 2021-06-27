@@ -1,7 +1,7 @@
 ### **Đỗ Minh Tân**
 ### Script Hingp3
 ```
-wget script.jpsharing.net/hping3.sh; sh hping3.sh
+wget script.jpsharing.net/hping3.sh; bash hping3.sh
 ```
 ### Script Backup
 ```
