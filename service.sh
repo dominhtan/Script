@@ -38,7 +38,7 @@ opt1=("Status" "Auto" "Craft")
                         then
                                 echo $service is running
                         else
-                       if [ `systemctl status $service | grep -q 'cound not be found'` ]
+                       if [ `systemctl status $service | grep -q 'cound not be found'` ] >/dev/null
                         then
                                 break
                         else      
@@ -50,13 +50,12 @@ opt1=("Status" "Auto" "Craft")
                                 systemctl start $service
                                 systemctl enable $service
                         fi
-                 
                         done
-                        echo "Checking Web Service...................."
-                        echo "****************************************"
+                                echo "Checking Web Service...................."
+                                echo "****************************************"
                         if [ `systemctl list-units --type service --all | grep 'nginx' | wc -l` -ge 1 ]
                         then
-                        echo " Your website is running WebService Nginx "
+                                echo " Your website is running WebService Nginx "
                                 if [ `systemctl status nginx | grep 'running' | wc -l` -ge 1 ]
                                         then
                                                 echo Nginx webservice is running
