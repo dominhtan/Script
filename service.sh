@@ -33,13 +33,7 @@ opt1=("Status" "Auto" "Craft")
                 echo "List Service..........................."
                 echo "***************************************" 
                 for service in $mysql $php $crond $ssh $network $docker
-                        do
-                if [ `systemctl status $service | grep -q 'cound not be found'` ]
-                then
-                      break
-                else      
-                      continue
-                fi      
+                do    
                       i=`systemctl status $service | grep 'running' | wc -l`
                                 if [ $i -ge 1 ]
                         then
@@ -57,6 +51,12 @@ opt1=("Status" "Auto" "Craft")
                                 systemctl start $service
                                 systemctl enable $service
                         fi
+                if [ `systemctl status $service | grep -q 'cound not be found'` ]
+                then
+                      break
+                else      
+                      continue
+                fi        
                         done
                         echo "Checking Web Service...................."
                         echo "****************************************"
