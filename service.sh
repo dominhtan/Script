@@ -25,30 +25,36 @@ opt1=("Status" "Auto" "Craft")
                 select menu1 in "${opt1[@]}"
                 do
                         case $menu1 in
+                        
                 "Status")
                                 echo " All Process Status : .."
                                 systemctl list-units --type service --all
                 ;;
+
                 "Auto")
-                echo "List Service..........................."
-                echo "***************************************" 
+                     echo "List Service..........................."
+                echo "***************************************"
                 for service in $mysql $php $crond $ssh $network $docker
-                do    
-                       if [ `systemctl status $service | grep 'running' | wc -l` -ge 1 ] 
+                do
+                        if [ `systemctl status $service | grep 'running' | wc -l` -ge 1 ]
                         then
                                 echo $service is running
-                        else
-                       if [ `systemctl status $service | grep -q 'cound not be found'` ] >/dev/null
+
+                        elif [ `systemctl status $service | grep 'active' | wc -l` -ge 1 ]
                         then
-                                break
-                        else      
+                                echo $service is running
+
+                        elif [ `systemctl status $service | grep 'inactive'` ]
+                        then
                                 continue
-                        fi    
                                 echo $service not running
                                 echo Restart $service now...
                                 sleep 3
                                 systemctl start $service
                                 systemctl enable $service
+                        else
+                                echo "Process Status continue...."
+                                continue
                         fi
                         done
                                 echo "Checking Web Service...................."
@@ -67,11 +73,11 @@ opt1=("Status" "Auto" "Craft")
                                 fi
                         elif [ `systemctl list-units --type service --all | grep 'lscpd' | wc -l` -ge 1 ]
                         then
-                        echo "Your website is running WebService LiteSpeed "
+                                echo "Your website is running WebService LiteSpeed "
                                 if [ `systemctl status lscpd.service | grep 'running' | wc -l` -ge 1 ]
                                         then
                                                 echo LiteSpeed webservice is running
-                                        else
+                                else
                                                 echo Restart LiteSpeed webservice now...
                                                 sleep 3
                                                 systemctl start nginx
@@ -94,10 +100,10 @@ opt1=("Status" "Auto" "Craft")
                                 break
                         fi
                 ;;
-               "Craft")              
+               "Craft")
                # Lười chưa làm
                 ;;
                *) echo "Vui lòng chọn lại từ 1 đến 4 $REPLY"
-                  
+
 esac
 done
