@@ -37,8 +37,7 @@ opt1=("Status" "Auto" "Craft")
                                 if [ $i -ge 1 ]
                         then
                                 echo $service is running
-                        elif
-                        then
+                        else
                                 echo $service not running
                                 if [ $service -eq 'php' ]
                                 then
@@ -50,9 +49,7 @@ opt1=("Status" "Auto" "Craft")
                                 sleep 5
                                 systemctl start $service
                                 systemctl enable $service
-                        else
-                                echo "Error - Restart script now... $REPLY"
-                fi
+                        fi
                 done
                         echo "Checking Web Service...................."
 
