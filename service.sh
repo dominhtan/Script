@@ -17,7 +17,7 @@ ssh=sshd
 network=network
 docker=docker
 
-PS3="Chọn chức năng : "
+PS3="Choose 1..4 : "
 echo "------------------Do Minh Tan----------------------"
 echo "\-------------------------------------------------/"
 opt1=("Status" "Auto" "Craft")
@@ -40,7 +40,7 @@ opt1=("Status" "Auto" "Craft")
                                 echo $service is running
                         else
                                 echo $service not running
-                                if [ systemctl list-units --type service --all | grep -q 'php-fpm' ]
+                                if [ ps -eaf | grep -i php | sed '/^$/d' ]
                                 then
                                     systemctl start php-fpm.service &&  systemctl start php7.0-fpm.service
                                 else
@@ -104,8 +104,7 @@ opt1=("Status" "Auto" "Craft")
                "Craft")              
                # Lười chưa làm
                 ;;
-               *) 
-               echo "Exit now..." sleep 5
-               exit
+               *) echo "Vui lòng chọn lại từ 1 đến 4 $REPLY"
+                  
 esac
 done
