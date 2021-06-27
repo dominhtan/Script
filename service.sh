@@ -54,7 +54,7 @@ opt1=("Status" "Auto" "Craft")
                                 echo "Error - Restart script now... $REPLY"
                 fi
                 done
-                                        echo "Checking Web Service...................."
+                                echo "Checking Web Service................"
 
                         #if [ ps -eaf | grep -i $web_service |sed '/^$/d' | wc -l -eq 1 ]
                         #then
