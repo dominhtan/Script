@@ -33,8 +33,6 @@ opt1=("Status" "Auto" "Craft" "Exit")
                 echo "List Service..........................."
                 echo "***************************************" 
                 for service in $mysql $php $crond $ssh $network $docker
-                if [ systemctl status $service | grep -q 'running' ] 
-                then
                         do
                                 i=`systemctl status $service | grep 'running' | wc -l`
                                 if [ $i -ge 1 ]
@@ -53,10 +51,7 @@ opt1=("Status" "Auto" "Craft" "Exit")
                                 systemctl start $service
                                 systemctl enable $service
                         fi
-                else      
-                       echo "Error 404...not found Service"
-                fi
-                done
+                        done
                         echo "Checking Web Service...................."
                         echo "****************************************"
                         if [ `systemctl list-units --type service --all | grep 'nginx' | wc -l` -ge 1 ]
