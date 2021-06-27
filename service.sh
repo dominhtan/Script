@@ -38,18 +38,19 @@ opt1=("Status" "Auto" "Craft")
                         then
                                 echo $service is running
                         else
+                       if [ `systemctl status $service | grep -q 'cound not be found'` ]
+                        then
+                                break
+                        else      
+                                continue
+                        fi    
                                 echo $service not running
                                 echo Restart $service now...
                                 sleep 3
                                 systemctl start $service
                                 systemctl enable $service
                         fi
-                if [ `systemctl status $service | grep -q 'cound not be found'` ]
-                then
-                      break
-                else      
-                      continue
-                fi        
+                 
                         done
                         echo "Checking Web Service...................."
                         echo "****************************************"
