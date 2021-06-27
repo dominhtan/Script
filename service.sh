@@ -34,7 +34,7 @@ opt1=("Status" "Auto" "Craft")
                 echo "***************************************"
                         for service in $mysql $php $crond $ssh $network $docker
                         do
-                                i=`ps -eaf | grep -i $service |sed '/^$/d' | wc -l`
+                                i=`systemctl status $service | grep 'running' | wc -l`
                                 if [ $i -ge 1 ]
                         then
                                 echo $service is running
