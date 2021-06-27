@@ -33,7 +33,7 @@ opt1=("Status" "Auto" "Craft" "Exit")
                 echo "List Service..........................."
                 echo "***************************************" 
                 for service in $mysql $php $crond $ssh $network $docker
-                if [ `systemctl status $service | grep -q 'running'` ] 
+                if [ systemctl status $service | grep -q 'running' ] 
                 then
                         do
                                 i=`systemctl status $service | grep 'running' | wc -l`
