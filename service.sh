@@ -40,7 +40,7 @@ opt1=("Status" "Auto" "Craft")
                                 echo $service is running
                         else
                                 echo $service not running
-                                if [ $service -eq 'php' ]
+                                if [ $service -eq 'php-fpm' ]
                                 then
                                     systemctl start php-fpm.service &&  systemctl start php7.0-fpm.service
                                 else
