@@ -31,6 +31,7 @@ opt1=("Status" "Auto" "Craft")
                 ;;
                 "Auto" )
                 echo "List Service..........................."
+                echo "***************************************"
                         for service in $mysql $php $crond $ssh $network $docker
                         do
                                 i=`ps -eaf | grep -i $service |sed '/^$/d' | wc -l`
@@ -52,11 +53,11 @@ opt1=("Status" "Auto" "Craft")
                         fi
                 done
                         echo "Checking Web Service...................."
-
-                        if [ systemctl list-units --type service --all | grep 'nginx' | wc -l ]
-                                                then
+                        echo "****************************************"
+                        if [ `systemctl list-units --type service --all | grep 'nginx' | wc -l` -ge 1 ]
+                        then
                         echo " Your website is running WebService Nginx "
-                                if [ systemctl status nginx | grep 'running' | wc -l -ge 1 ]
+                                if [ `systemctl status nginx | grep 'running' | wc -l` -ge 1 ]
                                         then
                                                 echo Nginx webservice is running
                                         else
@@ -65,10 +66,10 @@ opt1=("Status" "Auto" "Craft")
                                                 systemctl start nginx
                                                 systemctl enable nginx
                                 fi
-                        elif [ systemctl list-units --type service --all | grep 'lscpd' | wc -l -ge 1 ]
+                        elif [ `systemctl list-units --type service --all | grep 'lscpd' | wc -l` -ge 1 ]
                         then
                         echo "Your website is running WebService LiteSpeed "
-                                if [ systemctl status lscpd.service | grep 'running' | wc -l -ge 1 ]
+                                if [ `systemctl status lscpd.service | grep 'running' | wc -l` -ge 1 ]
                                         then
                                                 echo LiteSpeed webservice is running
                                         else
@@ -77,7 +78,7 @@ opt1=("Status" "Auto" "Craft")
                                                 systemctl start nginx
                                                 systemctl enable lscpd.service
                                 fi
-                        elif [ systemctl list-units --type service --all | grep 'httpd' | wc -l -ge 1 ]
+                        elif [ `systemctl list-units --type service --all | grep 'httpd' | wc -l` -ge 1 ]
                         then
                         echo "Your website is running WebService Apache "
                                 if [ systemctl status httpd.service | grep 'running' | wc -l -ge 1 ]
