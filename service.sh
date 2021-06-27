@@ -45,12 +45,6 @@ opt1=("Status" "Auto" "Craft")
                                 systemctl start $service
                                 systemctl enable $service
                         fi
-                if [ `ps -eaf | grep -i php | sed '/^$/d'` -eq 0 ]
-                then
-                                systemctl start php-fpm.service &&  systemctl start php7.0-fpm.service
-                else
-                                continue
-                        fi
                 if [ `systemctl status $service | grep -q 'cound not be found'` ]
                 then
                       break
