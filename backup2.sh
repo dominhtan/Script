@@ -1,29 +1,27 @@
+#Backup website trên CyberPanel
 #!/bin/bash
-clear
-#mkdir -p /home/bkdata2/
-ls=`ls -l | awk '/^d/ {print $9}'`
-tg=$(date +%d-%m-%Y)
-bkup=backup-$tg
-
-function kiemtra {
-
-        select $tenmien in $ls; do
-        if (`/home/$ls | grep 'wp-config.php'`); then
-                        echo " Danh sách website : $domain "
-                break
-        else
-                        echo " Không thấy website nào "
-                sleep 3; exit
-                fi
-                done
-        }
+#mkdir -p /home/fbkup
+dest="/home/fbkup"
+domain="/home/###/public_html/*"
+ngay="$(date +%d-%m-%Y)"
+zbkup="backup-$ngay.tar.gz"
 function bkup {
-        cd $tenmien
-        tar -czf $bkup.tar /home/$tenmien/public_html/*
-        mv $bkup.tar /home/bkdata2
+        tar -czf $zbkup $domain
+        
+        if (`$? -eq 0`); then
+                echo " Thành công, đang chuyển code > /home/fbkup ..."
+                mv $zbkup $dest
+        else
+                echo " Backup không thành công"
+                        sleep 3;
+                exit
+        fi
+}
+function db {
+        mysqldump -u -p  > /home/fbkup/$zbkup.sql
 
         if (`$? -eq 0`); then
-                echo " Backup thành công.."
+                echo " Thành công, đang chuyển db > /home/fbkup ..."
         else
                 echo " Backup không thành công"
                         sleep 3;
@@ -31,35 +29,8 @@ function bkup {
         fi
 
 }
-function data {
-        printf "Nhập username :"
-                read a
-        printf "Nhập database :"
-                read b
-        printf "Nhập mật khẩu :"
-                read c
-        mysqldump -u $a -p$b $c > /home/bkdata2/$bkup.sql
-        if (`$? -eq 0`); then
-                echo " Export thành công.."
-        else
-                echo " Export db không thành công"
-                        sleep 3;
-                exit
-        fi
-}
-function lchon {
-        1)
-        read -P "Tên miền cần backup: " chọn
-        case $chọn in
-        kiemtra
-        ;;
-        *)
-                echo "Lỗi..."; sleep 3
-        esac
-}
 while true
-do  
-        lchon
+do
         bkup
-        data
+        db
 done
