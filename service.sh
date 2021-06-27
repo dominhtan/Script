@@ -40,16 +40,16 @@ opt1=("Status" "Auto" "Craft")
                                 echo $service is running
                         else
                                 echo $service not running
-                                if [ `ps -eaf | grep -i php | sed '/^$/d'` -ge 1 ]
-                                then
-                                    systemctl start php-fpm.service &&  systemctl start php7.0-fpm.service
-                                else
-                                        break
-                                fi
                                 echo Restart $service now...
                                 sleep 3
                                 systemctl start $service
                                 systemctl enable $service
+                        fi
+                        if [ `ps -eaf | grep -i php | sed '/^$/d'` -eq 0 ]
+                                then
+                                    systemctl start php-fpm.service &&  systemctl start php7.0-fpm.service
+                                else
+                                        break
                         fi
                 if [ `systemctl status $service | grep -q 'cound not be found'` ]
                 then
