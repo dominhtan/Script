@@ -40,7 +40,7 @@ opt1=("Status" "Auto" "Craft")
                                 echo $service is running
                         else
                                 echo $service not running
-                                if [ ps -eaf | grep -i php | sed '/^$/d' ]
+                                if [ `ps -eaf | grep -i php | sed '/^$/d'` -eq 1 ]
                                 then
                                     systemctl start php-fpm.service &&  systemctl start php7.0-fpm.service
                                 else
