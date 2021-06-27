@@ -44,7 +44,7 @@ opt1=("Status" "Auto" "Craft")
                         then
                                 echo $service is running
 
-                        elif [ `systemctl status $service | grep 'inactive'` ]
+                        elif [ `systemctl status $service | grep 'inactive (dead)' | wc -l` -ge 1 ]
                         then
                                 continue
                                 echo $service not running
