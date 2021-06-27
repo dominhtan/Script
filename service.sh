@@ -10,7 +10,7 @@ clear
 #php=PHP-FPM
 
 #Gọi biến Service_Stop
-php=php-fpm
+#php=php-fpm
 mysql=mysqld.service
 crond=crond.service
 ssh=sshd
