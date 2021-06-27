@@ -11,7 +11,7 @@ clear
 
 #Gọi biến Service_Stop
 php=php-fpm
-mysql=mysql.service
+mysql=mysqld.service
 crond=crond.service
 ssh=sshd
 network=network
