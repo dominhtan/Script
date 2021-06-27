@@ -20,16 +20,16 @@ docker=docker
 PS3="Chọn chức năng : "
 echo "------------------Do Minh Tan----------------------"
 echo "\-------------------------------------------------/"
-opt1=("Status" "Auto" "Craft" "Exit")
+opt1=("Status" "Auto" "Craft")
 
                 select menu1 in "${opt1[@]}"
                 do
                         case $menu1 in
-                "Status" )
+                "Status")
                                 echo " All Process Status : .."
                                 systemctl list-units --type service --all
                 ;;
-                "Auto" )
+                "Auto")
                 echo "List Service..........................."
                 echo "***************************************" 
                 for service in $mysql $php $crond $ssh $network $docker
@@ -95,10 +95,10 @@ opt1=("Status" "Auto" "Craft" "Exit")
                                 break
                         fi
                 ;;
-               "Craft" )              
-              # Lười chưa làm
+               "Craft")              
+               # Lười chưa làm
                 ;;
-               "Exit") 
+               *) 
                echo "Exit now..." sleep 5
                exit
 esac
