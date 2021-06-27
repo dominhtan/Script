@@ -17,7 +17,7 @@ ssh=sshd
 network=network
 docker=docker
 
-PS3="Chọn chức năng : "
+PS3="Select function you want :"
 echo "------------------Do Minh Tan----------------------"
 echo "\-------------------------------------------------/"
 opt1=("Status" "Auto" "Craft")
