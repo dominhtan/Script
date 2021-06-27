@@ -20,7 +20,7 @@ docker=docker
 PS3="Chọn chức năng : "
 echo "------------------Do Minh Tan----------------------"
 echo "\-------------------------------------------------/"
-opt1=("Status" "Auto" "Craft")
+opt1=("Status" "Auto" "Craft" "Exit")
 
                 select menu1 in "${opt1[@]}"
                 do
@@ -100,5 +100,11 @@ opt1=("Status" "Auto" "Craft")
                                 break
                         fi
                 ;;
+               "Craft" )              
+              # Lười chưa làm
+                ;;
+               "Exit") 
+               echo "Exit now..." sleep 5
+               exit
 esac
 done
