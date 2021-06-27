@@ -17,7 +17,7 @@ ssh=sshd
 network=network
 docker=docker
 
-PS3="Select function you want :"
+PS3="Chọn chức năng : "
 echo "------------------Do Minh Tan----------------------"
 echo "\-------------------------------------------------/"
 opt1=("Status" "Auto" "Craft")
@@ -46,20 +46,56 @@ opt1=("Status" "Auto" "Craft")
                                 else
                                         break
                                 fi
-                                echo Start $service now...
-                                sleep 5;
+                                echo Restart $service now...
+                                sleep 5
                                 systemctl start $service
                                 systemctl enable $service
                         else
                                 echo "Error - Restart script now... $REPLY"
                 fi
                 done
-                                echo "Checking Web Service................"
+                        echo "Checking Web Service...................."
 
-                        #if [ ps -eaf | grep -i $web_service |sed '/^$/d' | wc -l -eq 1 ]
-                        #then
-                        #echo " Your website running WebService Nginx "
-
+                        if [ systemctl list-units --type service --all | grep 'nginx' | wc -l ]
+                                                then
+                        echo " Your website is running WebService Nginx "
+                                if [ systemctl status nginx | grep 'running' | wc -l -ge 1 ]
+                                        then
+                                                echo Nginx webservice is running
+                                        else
+                                                echo Restart Nginx webservice now...
+                                                sleep 3
+                                                systemctl start nginx
+                                                systemctl enable nginx
+                                fi
+                        elif [ systemctl list-units --type service --all | grep 'lscpd' | wc -l -ge 1 ]
+                        then
+                        echo "Your website is running WebService LiteSpeed "
+                                if [ systemctl status lscpd.service | grep 'running' | wc -l -ge 1 ]
+                                        then
+                                                echo LiteSpeed webservice is running
+                                        else
+                                                echo Restart LiteSpeed webservice now...
+                                                sleep 3
+                                                systemctl start nginx
+                                                systemctl enable lscpd.service
+                                fi
+                        elif [ systemctl list-units --type service --all | grep 'httpd' | wc -l -ge 1 ]
+                        then
+                        echo "Your website is running WebService Apache "
+                                if [ systemctl status httpd.service | grep 'running' | wc -l -ge 1 ]
+                                        then
+                                                echo Apache webservice is running
+                                        else
+                                                echo Restart Apache webservice now...
+                                                sleep 3
+                                                systemctl start httpd.service
+                                                systemctl enable httpd.service
+                                        fi
+                        else
+                                echo " Error...404 "
+                                break
+                        fi
                 ;;
 esac
 done
