@@ -34,13 +34,19 @@ opt1=("Status" "Auto" "Craft")
                 echo "***************************************" 
                 for service in $mysql $php $crond $ssh $network $docker
                         do
-                                i=`systemctl status $service | grep 'running' | wc -l`
+                if [ `systemctl status $service | grep -q 'cound not be found'` ]
+                then
+                      break
+                else      
+                      continue
+                fi      
+                      i=`systemctl status $service | grep 'running' | wc -l`
                                 if [ $i -ge 1 ]
                         then
                                 echo $service is running
                         else
                                 echo $service not running
-                                if [ $service -eq 'php-fpm' ]
+                                if [ systemctl list-units --type service --all | grep -q 'php-fpm' ]
                                 then
                                     systemctl start php-fpm.service &&  systemctl start php7.0-fpm.service
                                 else
