@@ -111,7 +111,7 @@ opt1=("Status" "Auto" "Craft")
                         else
                                 initd=`ls /etc/init.d/ | grep $service_craft | wc -l | awk '{ print $1 }'`
 
-                                if [` $initd -eq "1"`]
+                                if [ "$initd" -eq 1 ]
                                 then
                                         startup= `ls /etc/init.d | grep $service_craft`
                                         echo -n Found start script {$service_craft}. Start it? Y/n ?
