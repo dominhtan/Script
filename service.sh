@@ -20,7 +20,7 @@ docker=docker
 PS3="Choose 1..4 : "
 echo "------------------Do Minh Tan----------------------"
 echo "\-------------------------------------------------/"
-opt1=("Status" "Auto" "Craft")
+opt1=("Status" "Auto" "Craft" "Exit")
 
                 select menu1 in "${opt1[@]}"
                 do
@@ -100,14 +100,13 @@ opt1=("Status" "Auto" "Craft")
                                 break
                         fi
                 ;;
-               "Craft")
-                        printf "Please enter the service to check... :"
+              "Craft")
+                         printf "Please enter the service to check... :"
                         read $service_craft
 
-                        is_running=`ps -eaf | grep -i $service_craft | sed '/^$/d' | wc -l`
+                        is_running=`ps -eaf | grep -i "$service_craft" | sed '/^$/d' | wc -l`
                         if [ "$is_running" -ne 0 ]
-                        then  
-                                 ps -eaf | grep -i $service_craft | sed '/^$/d'
+                        then
                                  echo $service_craft is running
                         else
                                 initd=`ls /etc/init.d/ | grep $service_craft | wc -l | awk '{ print $1 }'`
@@ -126,11 +125,14 @@ opt1=("Status" "Auto" "Craft")
                                                 exit 1
                                         fi
                                 else
-                                        echo $service_craft is running
+                                        echo "Service is not installed or not running"
                                         exit 1
                                 fi
                         fi
                 ;;
-               "*") echo "Vui lòng chọn lại từ 1 đến 4 $REPLY"
+               "Exit") echo "Thoát"
+                       sleep 5
+                       exit
+                ;;
          esac
 done
