@@ -65,7 +65,7 @@ opt1=("Status" "Auto" "Craft")
                                 if [ `systemctl status nginx | grep 'running' | wc -l` -ge 1 ]
                                         then
                                                 echo Nginx webservice is running
-                                        elsesystec
+                                        else
                                                 echo Restart Nginx webservice now...
                                                 sleep 3
                                                 systemctl start nginx
