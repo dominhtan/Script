@@ -40,7 +40,7 @@ opt1=("Status" "Auto" "Craft")
                         then
                                 echo $service is running
 
-                        elif [ `systemctl status $service | grep 'active' | wc -l` -ge 1 ]
+                        elif [ `systemctl status $service | grep 'exited' | wc -l` -ge 1 ]
                         then
                                 echo $service is running
 
@@ -65,7 +65,7 @@ opt1=("Status" "Auto" "Craft")
                                 if [ `systemctl status nginx | grep 'running' | wc -l` -ge 1 ]
                                         then
                                                 echo Nginx webservice is running
-                                        else
+                                        elsesystec
                                                 echo Restart Nginx webservice now...
                                                 sleep 3
                                                 systemctl start nginx
