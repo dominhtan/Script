@@ -107,7 +107,7 @@ opt1=("Status" "Auto" "Craft")
                         is_running=`ps -eaf | grep -i $service_craft | sed '/^$/d' | wc -l`
                         if [ "$is_running" -ne 0 ]
                         then
-                                 echo " $service_craft is running"
+                                 echo $service_craft is running
                         else
                                 initd=`ls /etc/init.d/ | grep $service_craft | wc -l | awk '{ print $1 }'`
 
