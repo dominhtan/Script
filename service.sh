@@ -101,7 +101,7 @@ opt1=("Status" "Auto" "Craft" "Exit")
                         fi
                 ;;
               "Craft")
-                         printf "Please enter the service to check... :"
+                        printf "Please enter the service to check... :"
                         read $service_craft
 
                         is_running=`ps -eaf | grep -i "$service_craft" | sed '/^$/d' | wc -l`
@@ -109,12 +109,10 @@ opt1=("Status" "Auto" "Craft" "Exit")
                         then
                                  echo $service_craft is running
                         else
-                                initd=`ls /etc/init.d/ | grep $service_craft | wc -l | awk '{ print $1 }'`
-
+                                initd=`ls /etc/init.d/ | awk '{ print $1 }' | grep "$service_craft" | wc -l`
                                 if [ "$initd" -eq 1 ]
                                 then
-                                        startup= `ls /etc/init.d | grep $service_craft`
-                                        echo -n Found start script {$service_craft}. Start it? Y/n ?
+                                        startup=`ls /etc/init.d | grep $service_craft`
                                         read answer
                                         if [ $answer -eq "y" -o $answer -eq "Y" ]
                                         then
