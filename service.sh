@@ -36,19 +36,15 @@ opt1=("Status" "Auto" "Craft")
                 echo "***************************************"
                 for service in $mysql $php $crond $ssh $network $docker
                 do
-                        if [ `systemctl status $service | grep 'running' | wc -l` -ge 1 ]
+                        if [ `systemctl status $service | grep 'running' -o grep 'exited' | wc -l` -ge 1 ]
                         then
                                 echo $service is running
 
-                        elif [ `systemctl status $service | grep 'exited' | wc -l` -ge 1 ]
-                        then
-                                echo $service is running
-
-                        elif [ `ps -eaf | grep -i php |sed '/^$/d' | wc -l` -ge 1 ]
+                        elif [ `ps -eaf | grep -i php | sed '/^$/d' | wc -l` -ge 1 ]
                         then
                                 echo PHP is running
 
-                        elif [ `systemctl status $service | grep 'dead' | wc -l` -ge 1 ]
+                        elif [ `systemctl status $service | grep 'dead' -o grep 'inactive' | wc -l` -ge 1 ]
                         then
                                 continue
                                 echo $service not running
@@ -105,9 +101,38 @@ opt1=("Status" "Auto" "Craft")
                         fi
                 ;;
                "Craft")
-               # Lười chưa làm
+                if [ "$#" = 0 ]
+                then
+                        echo "Usage $0 "
+                exit 1
+                fi
+                        service_craft=$1
+                        is_running =`ps -eaf | grep -i $service_craft | sed '/^$/d`
+                        if [`$service_craft -ne 0`] 
+                        then
+                                 echo " $service_craft is running"
+                        else
+                                initd=`ls /etc/init.d/ | grep $service_craft | wc -l | awk '{ print $1 }'`
+
+                                if [` $initd -eq "1"`]
+                                then 
+                                        startup= `ls /etc/init.d | grep $service_craft`
+                                        echo -n Found start script {$service_craft}. Start it? Y/n ?
+                                        read answer
+                                        if [ $answer -eq "y" -o $answer -eq "Y" ]
+                                        then 
+                                                echo "Starting Service..."
+                                                /etc/init.d/${startup} start
+                                        else
+                                                echo "Error 404...not found"
+                                                exit 1
+                                        fi
+                                else   
+                                        echo $service_craft is running   
+                                        exit 1
+                                fi                          
+                        fi 
                 ;;
                *) echo "Vui lòng chọn lại từ 1 đến 4 $REPLY"
 
 esac
-done
