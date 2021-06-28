@@ -86,7 +86,7 @@ opt1=("Status" "Auto" "Craft")
                         elif [ `systemctl list-units --type service --all | grep 'httpd' | wc -l` -ge 1 ]
                         then
                         echo "Your website is running WebService Apache "
-                                if [ systemctl status httpd.service | grep 'running' | wc -l -ge 1 ]
+                                if [ `systemctl status httpd.service | grep 'running' | wc -l` -ge 1 ]
                                         then
                                                 echo Apache webservice is running
                                         else
@@ -101,14 +101,11 @@ opt1=("Status" "Auto" "Craft")
                         fi
                 ;;
                "Craft")
-                if [ "$#" = 0 ]
-                then
-                        echo "Usage $0 "
-                exit 1
-                fi
-                        service_craft=$1
-                        is_running =`ps -eaf | grep -i $service_craft | sed '/^$/d`
-                        if [`$service_craft -ne 0`] 
+                        printf "Please enter the service to check... :"
+                        read $service_craft
+
+                        is_running =`ps -eaf | grep -i $service_craft | sed '/^$/d' | wc -l`
+                        if [`$is_running -ne 0`] 
                         then
                                  echo " $service_craft is running"
                         else
@@ -134,6 +131,5 @@ opt1=("Status" "Auto" "Craft")
                         fi 
                 ;;
                *) echo "Vui lòng chọn lại từ 1 đến 4 $REPLY"
-                ;;
-esac
+         esac
 done
