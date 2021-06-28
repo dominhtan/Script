@@ -104,31 +104,31 @@ opt1=("Status" "Auto" "Craft")
                         printf "Please enter the service to check... :"
                         read $service_craft
 
-                        is_running =`ps -eaf | grep -i $service_craft | sed '/^$/d' | wc -l`
-                        if [`$is_running -ne 0`] 
+                        is_running=`ps -eaf | grep -i $service_craft | sed '/^$/d' | wc -l`
+                        if [ "$is_running" -ne 0 ]
                         then
                                  echo " $service_craft is running"
                         else
                                 initd=`ls /etc/init.d/ | grep $service_craft | wc -l | awk '{ print $1 }'`
 
                                 if [` $initd -eq "1"`]
-                                then 
+                                then
                                         startup= `ls /etc/init.d | grep $service_craft`
                                         echo -n Found start script {$service_craft}. Start it? Y/n ?
                                         read answer
                                         if [ $answer -eq "y" -o $answer -eq "Y" ]
-                                        then 
+                                        then
                                                 echo "Starting Service..."
                                                 /etc/init.d/${startup} start
                                         else
                                                 echo "Error 404...not found"
                                                 exit 1
                                         fi
-                                else   
-                                        echo $service_craft is running   
+                                else
+                                        echo $service_craft is running
                                         exit 1
-                                fi                          
-                        fi 
+                                fi
+                        fi
                 ;;
                *) echo "Vui lòng chọn lại từ 1 đến 4 $REPLY"
          esac
