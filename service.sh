@@ -130,6 +130,6 @@ opt1=("Status" "Auto" "Craft")
                                 fi
                         fi
                 ;;
-               *) echo "Vui lòng chọn lại từ 1 đến 4 $REPLY"
+               "*") echo "Vui lòng chọn lại từ 1 đến 4 $REPLY"
          esac
 done
