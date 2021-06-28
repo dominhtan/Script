@@ -36,11 +36,11 @@ opt1=("Status" "Auto" "Craft" "Exit")
                 echo "***************************************"
                 for service in $mysql $php $crond $ssh $network $docker
                 do
-                        if [ `systemctl status $service | grep 'running' -o grep 'exited' | wc -l` -ge 1 ]
+                        if [ `systemctl status $service | grep "running" -o grep "exited" | wc -l` -ge 1 ]
                         then
                                 echo $service is running
 
-                        elif [ `ps -eaf | grep -i php | sed '/^$/d' | wc -l` -ge 1 ]
+                        elif [ `ps -eaf | grep -i $php | sed '/^$/d' | wc -l` -ge 1 ]
                         then
                                 echo PHP is running
 
