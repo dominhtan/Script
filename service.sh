@@ -10,7 +10,6 @@ clear
 #php=PHP-FPM
 
 #Gọi biến Service_Stop
-php=php-fpm
 mysql=mysqld.service
 crond=crond.service
 ssh=sshd
@@ -40,13 +39,13 @@ opt1=("Status" "Auto" "Craft" "Exit")
                         then
                                 echo $service is running
                                 
+                         elif [ `ps -eaf | grep -i php | sed '/^$/d' | wc -l` -ge 1 ]
+                        then
+                                echo PHP is running        
+                                
                         elif [ `systemctl status $service | grep "exited" | wc -l` -ge 1 ]
                         then
                                 echo $service is running        
-
-                        elif [ `ps -eaf | grep -i `$php` | sed '/^$/d' | wc -l` -ge 1 ]
-                        then
-                                echo PHP is running
 
                         elif [ `systemctl status $service | [ grep "dead" -o grep "inactive" ] | wc -l` -ge 1 ]
                         then
