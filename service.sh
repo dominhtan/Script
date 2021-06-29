@@ -44,11 +44,11 @@ opt1=("Status" "Auto" "Craft" "Exit")
                         then
                                 echo $service is running        
 
-                        elif [ `ps -eaf | grep -i $php | sed '/^$/d' | wc -l` -ge 1 ]
+                        elif [ `ps -eaf | grep -i `$php` | sed '/^$/d' | wc -l` -ge 1 ]
                         then
                                 echo PHP is running
 
-                        elif [ `systemctl status $service | [ grep 'dead' -o grep 'inactive' ] | wc -l` -ge 1 ]
+                        elif [ `systemctl status $service | [ grep "dead" -o grep "inactive" ] | wc -l` -ge 1 ]
                         then
                                 echo $service not running
                                 echo Restart $service now...
