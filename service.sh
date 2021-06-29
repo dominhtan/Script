@@ -32,8 +32,9 @@ opt1=("Status" "Auto" "Craft" "Exit")
                 ;;
 
                 "Auto")
-                     echo "List Service..........................."
-                echo "***************************************"
+                echo "******************************************************"
+                echo "...................List Service........................"
+                echo "*******************************************************"
                 for service in $mysql $php $crond $ssh $network $docker
                 do
                         if [ `systemctl status $service | grep "running" | wc -l` -ge 1 ]
@@ -57,11 +58,11 @@ opt1=("Status" "Auto" "Craft" "Exit")
                                 systemctl enable $service
                         else
                                 echo "Check Process Status continue...."
-                                continue
                         fi
                         done
-                                echo "Checking Web Service...................."
-                                echo "****************************************"
+                        echo "******************************************************"
+                        echo "...................Web Service........................"
+                        echo "*******************************************************"
                         if [ `systemctl list-units --type service --all | grep 'nginx' | wc -l` -ge 1 ]
                         then
                                 echo " Your website is running WebService Nginx "
@@ -103,7 +104,9 @@ opt1=("Status" "Auto" "Craft" "Exit")
                                 break
                         fi
                 ;;
-              "Craft")
+              "Craft")  echo "******************************************************"
+                        echo "......................Check............................"
+                        echo "*******************************************************"
                         printf "Please enter the service to check... :"
                         read $service_craft
 
