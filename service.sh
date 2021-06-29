@@ -56,7 +56,7 @@ opt1=("Status" "Auto" "Craft" "Exit")
                                 systemctl start $service
                                 systemctl enable $service
                         else
-                                echo "Process Status continue...."
+                                echo "Check Process Status continue...."
                                 continue
                         fi
                         done
