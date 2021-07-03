@@ -37,28 +37,27 @@ opt1=("Status" "Auto" "Craft" "Exit")
                 echo "*******************************************************"
                 for service in $mysql $php $crond $ssh $network $docker
                 do
-                        if [ `systemctl status $service | grep "running" | wc -l` -ge 1 ]
-                        then
-                                echo $service is running
-                                
-                        elif [ `systemctl status $service | grep "exited" | wc -l` -ge 1 ]
-                        then
-                                echo $service is running        
-
-                        elif [ `ps -eaf | grep -i php | sed '/^$/d' | wc -l` -ge 1 ]
-                        then
-                                echo PHP is running
-
-                        elif (`systemctl status $service | grep -q 'dead' `)
-
+                        if [ `systemctl status $service | grep 'dead' | wc -l` -ge 1 ]
                         then
                                 echo $service not running
                                 echo Restart $service now...
                                 sleep 3
                                 systemctl start $service
                                 systemctl enable $service
-                        else
-                                echo "Check Process Status continue...."
+                        elif [ `systemctl status $service | grep "running" | wc -l` -ge 1 ]
+                        then
+                                echo $service is running
+
+                        elif [ `systemctl status $service | grep "exited" | wc -l` -ge 1 ]
+                        then
+                                echo $service is running
+
+                        elif [ `ps -eaf | grep -i php | sed '/^$/d' | wc -l` -ge 1 ]
+                        then
+                                echo PHP is running
+                        else 
+                                echo " Error..404 : Script continue...."
+
                         fi
                         done
                         echo "******************************************************"
