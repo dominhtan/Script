@@ -139,18 +139,21 @@ opt1=("Status" "Auto" "Craft" "Check PHP Version" "Exit")
                         printf "Your website need to check PHP Version :"
                         read z
 
-                                if [ cd `/home/$z/public_html/` -eq 0 ]
+                        if [ cd `/home/$z/public_html/` -eq 0 ]
                                 then
-                                echo "Checking your website PHP Version..."
-                                wget script.jpsharing.net/info.php > /home/$z/public_html/
-                                echo `Please run the path to check : $z/info.php`
+                                        echo "Checking your website PHP Version..."
+                                        wget script.jpsharing.net/info.php > /home/$z/public_html/
+                                        echo `Please run the path to check PHP Version : $z/info.php`
 
                                 elif [ cd `find /home -type d -name '$z'` ] 
                                 then
-                                echo "Checking your website PHP Version..."
-                                wget script.jpsharing.net/info.php > find /home -type d -name '$z'
-                                echo `Please run the path to check : $z/info.php`
-                                sleep 2; exit
+                                        echo "Checking your website PHP Version..."
+                                        wget script.jpsharing.net/info.php > find /home -type d -name '$z'
+                                        echo `Please run the path to check PHP Version : $z/info.php`
+                                sleep 2
+                                else
+                                        echo "Error..Couldn't check PHP Version.."
+                                exit
                         fi
                  ;;       
                "Exit") echo "Exit now..."
