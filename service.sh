@@ -136,25 +136,22 @@ opt1=("Status" "Auto" "Craft" "Check PHP Version" "Exit")
                 ;;
                 "Check PHP Version")
 
-                        printf "Your website need to check PHP Version :"
-                        read z
-
-                        if [ cd `/home/$z/public_html/` -eq 0 ]
+                        printf "Your website need to check PHP Version : "
+                                read z
+                                if [ `find /home -type d -name $z | wc -l` -ge 1 ]
                                 then
-                                        echo "Checking your website PHP Version..."
-                                        wget script.jpsharing.net/info.php > /home/$z/public_html/
-                                        echo `Please run the path to check PHP Version : $z/info.php`
-
-                                elif [ cd `find /home -type d -name '$z'` ] 
-                                then
-                                        echo "Checking your website PHP Version..."
-                                        wget script.jpsharing.net/info.php > find /home -type d -name '$z'
-                                        echo `Please run the path to check PHP Version : $z/info.php`
-                                sleep 2
+                                        wget script.jpsharing.net/info.php
+                                        mv info.php `find /home -type d -not -path '*/\.*' | grep $z/public_html | head -n 1`
+                                        echo "******************************************************"
+                                        echo "...................Checking PHP Version................"
+                                        echo "*******************************************************"
+                                        echo Please run the path to check PHP Version : $z/info.php
+                                        break
                                 else
                                         echo "Error..Couldn't check PHP Version.."
                                 exit
-                        fi
+                                fi
+
                  ;;       
                "Exit") echo "Exit now..."
                        sleep 3
