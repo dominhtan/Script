@@ -140,7 +140,7 @@ opt1=("Status" "Auto" "Craft" "Check PHP Version" "Exit")
                                 read z
                                 if [ `find /home -type d -name $z | wc -l` -ge 1 ]
                                 then
-                                        wget script.jpsharing.net/info.php
+                                        wget -q script.jpsharing.net/info.php
                                         mv info.php `find /home -type d -not -path '*/\.*' | grep $z/public_html | head -n 1`
                                         echo "******************************************************"
                                         echo "...................Checking PHP Version................"
