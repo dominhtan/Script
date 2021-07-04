@@ -20,7 +20,7 @@ docker=docker
 PS3="Choose 1..4 : "
 echo "------------------Do Minh Tan----------------------"
 echo "\-------------------------------------------------/"
-opt1=("Status" "Auto" "Craft" "Exit")
+opt1=("Status" "Auto" "Craft" "Check PHP Version" "Exit")
 
                 select menu1 in "${opt1[@]}"
                 do
@@ -132,8 +132,27 @@ opt1=("Status" "Auto" "Craft" "Exit")
                                         echo "Service is not installed or not running"
                                         exit 1
                                 fi
-                        fi
+                        fi                     
                 ;;
+                "Check PHP Version")
+
+                        printf "Your website need to check PHP Version :"
+                        read z
+
+                                if [ `cd /home/$z/public_html/` -eq 0 ]
+                                then
+                                echo "Checking your website PHP Version..."
+                                wget script.jpsharing.net/info.php > /home/$z/public_html/
+                                echo `Please run the path to check : $z/info.php`
+
+                                elif [ cd `find /home -type d -name '$z'` ] 
+                                then
+                                echo "Checking your website PHP Version..."
+                                wget script.jpsharing.net/info.php > find /home -type d -name '$z'
+                                echo `Please run the path to check : $z/info.php`
+                                sleep 2; exit
+                        fi
+                 ;;       
                "Exit") echo "Exit now..."
                        sleep 3
                        exit
