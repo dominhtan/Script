@@ -139,7 +139,7 @@ opt1=("Status" "Auto" "Craft" "Check PHP Version" "Exit")
                         printf "Your website need to check PHP Version :"
                         read z
 
-                                if [ `cd /home/$z/public_html/` -eq 0 ]
+                                if [ cd `/home/$z/public_html/` -eq 0 ]
                                 then
                                 echo "Checking your website PHP Version..."
                                 wget script.jpsharing.net/info.php > /home/$z/public_html/
