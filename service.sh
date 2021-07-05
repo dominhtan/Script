@@ -136,7 +136,7 @@ opt1=("Status" "Auto" "Craft" "Check PHP Version" "Exit")
                 ;;
                 "Check PHP Version")
 
-                        pprintf "Your website need to check PHP Version : "
+                        printf "Your website need to check PHP Version : "
                                 read z
                                 if [ `find /home -type d -name $z | wc -l` -ge 1 ]
                                 then
