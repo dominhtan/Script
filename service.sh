@@ -146,8 +146,7 @@ opt1=("Status" "Auto" "Craft" "Check PHP Version" "Exit")
                                         echo "...................Checking PHP Version................"
                                         echo "*******************************************************"
                                         echo Please run the path to check PHP Version : $z/info.php
-                                        break
-                                elif [ `find /home -type d -name $z | wc -l` -ge 1 ]
+                                        elif [ `find /home -type d -name $z | wc -l` -ge 1 ]
                                 then
                                         wget -q script.jpsharing.net/info.php
                                         mv info.php `find /home -type d -not -path '*/\.*' | grep $z/DocumentRoot | head -n 1`
