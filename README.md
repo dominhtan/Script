@@ -5,7 +5,7 @@ wget script.jpsharing.net/hping3.sh; bash hping3.sh
 ```
 ### Script Backup CyberPanel
 ```
-wget script.jpsharing.net/backup.sh; bash cyber_bkup.sh
+wget script.jpsharing.net/cyber_bkup; bash cyber_bkup.sh
 ```
 ### Script Service
 ```
