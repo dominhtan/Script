@@ -1,0 +1,66 @@
+#!/bin/bash
+
+clear
+mkdir -p /home/bkup
+user=`ls -l /home/`
+tg=$(date +%d-%m-%Y)
+
+echo "------------------Do Minh Tan----------------------"
+echo "\-------------------------------------------------/"
+
+function check {
+
+	cd /home/
+	ls=`ls -l | grep ^d | awk '{print $9}'`
+	PS3="Chose domain backup: "
+	select domain in $ls; do
+			if [ -f $domain/public_html/wp-config.php ]; then
+            break
+        else
+        	echo "Not found your Website running WordPress..."
+        	sleep 2; exit
+        fi
+    done
+}
+function getdb {
+
+	cd /home/$domain/public_html/
+	db_name= `grep 'DB_NAME' wp-config.php | awk -F "'" '{print $4}'`
+	db_user= `grep 'DB_USER' wp-config.php | awk -F "'" '{print $4}'`
+	db_pass= `grep 'DB_PASS' wp-config.php | awk -F "'" '{print $4}'`
+	echo "Waiting for get database..."
+}
+
+function bkdb {
+	getdb
+	cd /home/$domain/public_html/
+	mysqldump -u $db_user -p$db_pass $db_name > $domain-$tg.sql
+	mv $domain-$tg.sql /home/bkup
+
+	if [ $? -eq 0 ]; then
+        echo "Backup database successful"
+    else
+        echo "Backup database fail"
+        sleep 2; exit
+    fi
+}
+
+function bkcode {
+
+   	cd /home/$domain/public_html/
+    tar -czf $domain-$tg.tar.gz * 
+    mv $domain-$tg.tar.gz /home/bkup
+    if [ $? -eq 0 ]; then
+        echo "Backup code $domain successful"
+    else
+        echo "Backup code $domain fail"
+    fi  
+}
+while true
+do
+    check
+    getdb
+    bkdb
+    bkcode
+done
+;
