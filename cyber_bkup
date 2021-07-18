@@ -27,7 +27,7 @@ function bkdb {
 	cd /home/$domain/public_html/
     if [ `ls -l | grep 'wp-config.php' | wc -l` -ge 1 ]
     then
-    db_name=`grep 'DB_NAME' wp-config.php | awk -F "'" '{print $4}'`
+   	db_name=`grep 'DB_NAME' wp-config.php | awk -F "'" '{print $4}'`
 	db_user=`grep 'DB_USER' wp-config.php | awk -F "'" '{print $4}'`
 	db_pass=`grep 'DB_PASS' wp-config.php | awk -F "'" '{print $4}'`
     else
