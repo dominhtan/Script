@@ -9,7 +9,7 @@ echo "\-------------------------------------------------/"
 function check {
 
 	cd /home/
-	ls=`ls -l | grep ^d | awk '{print $9}'`
+	ls=`ls -l | grep ^d | awk '{print $9}' | find * -type d -name 'public_html' | cut -d "/" -f 1`
 	PS3="Chose domain backup: "
 	select domain in $ls; do
 			if [ -f $domain/public_html/wp-config.php ]
