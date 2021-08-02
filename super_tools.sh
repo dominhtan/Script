@@ -1,20 +1,30 @@
 #!/bin/bash
 
 #Kiểm tra tiến trình Trạng thái
-echo "=======================DO MINH TAN=============================="
+echo "================================================================"
 # Check số lượng inode :
 dui=`df -hi | sed -n '2p' | awk '{print $5}' | grep -v U`
 echo "Inode usage on `hostname` is exceeded : $dui"
+dus=`df -h | sed -n '6p' | awk '{print $5}' | grep -v U`
+echo "Disk usage on `hostname` is exceeded : $dus"
 echo "________________________________________________________________"
-echo "----------------------TimeZone----------------------------------"
+echo "-------------------------TimeZone-------------------------------"
 #Kiểm tra thời gian hiện tại
+function timez {
 time=`curl -s http://ip-api.com/line?fields=timezone`
 echo "Status : $time "
-date "+%A %B %d %T %y"
+date "+%A %B %d %T %y ||"
+}
+function phpz {
+        php -v | grep 'PHP ' | awk '{print $1, $2}'| head -n 1
+}
+echo `timez && phpz`
+echo "----------------------------------------------------------------"
+echo "                        Do Minh Tan                            "
+echo "----------------------------------------------------------------"
 echo "________________________________________________________________"
-echo "----------------------WebService--------------------------------"
 
-
+function webz {
                         if [ `systemctl list-units --type service --all | grep 'nginx' | wc -l` -ge 1 ]
                         then
 
@@ -54,35 +64,50 @@ echo "----------------------WebService--------------------------------"
                                 echo " Error 404...Not found WebService "
                                 break
                         fi
+        }
+echo                             `webz`
 echo "________________________________________________________________"
-echo "----------------------Service-----------------------------------"
+echo "--------------------------Service-------------------------------"
 
 # Kiểm tra Service
+function mysqlz {
 
                         if [ `systemctl status mysqld.service | grep 'running' | wc -l` -ge 1 ]
                         then
-                                echo "Service MySql = ON"
+                                echo "Service MySql = ON ||"
                         else
-                                echo "Service MySql = OFF"
+                                echo "Service MySql = OFF ||"
                         fi
+                }
+function dockerz {
                         if [ `systemctl status docker.service | grep 'running' | wc -l` -ge 1 ]
                         then
-                                echo "Docker = ON"
+                                echo "Docker = ON ||"
                         else
                                 echo "Please install Docker or start service now."
-                                echo "Docker = OFF"
+                                echo "Docker = OFF ||"
                         fi
+                }
+function sshz  {
                         if [ `systemctl status sshd | grep 'running' | wc -l` -ge 1 ]
                         then
-                                echo "SSH = Opening"
+                                echo "SSH = Opening ||"
                         else
-                                echo "SSH = Close"
+                                echo "SSH = Close ||"
                         fi
+                }
+function cronz {
                         if [ `systemctl status crond.service | grep 'running' | wc -l` -ge 1 ]
                         then
-                                echo "Service Cron = ON"
+                                echo "Service Cron = ON ||"
                         else
-                                echo "Service Cron = Close"
+                                echo "Service Cron = Close ||"
                         fi
+                }
+
+
+        echo `dockerz`
+        echo `mysqlz && sshz && cronz`
+
 
 echo "________________________________________________________________"
