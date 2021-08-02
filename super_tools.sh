@@ -20,7 +20,7 @@ function phpz {
 }
 echo `timez && phpz`
 echo "----------------------------------------------------------------"
-echo "                        Do Minh Tan                            "
+echo "                          Minh Tan                              "
 echo "----------------------------------------------------------------"
 echo "________________________________________________________________"
 
@@ -72,15 +72,16 @@ echo "--------------------------Service-------------------------------"
 # Kiểm tra Service
 function mysqlz {
 
-                        if [ `systemctl status mysqld.service | grep 'running' | wc -l` -ge 1 ]
+                        if [ ` systemctl status mysqld.service | grep 'running' | wc -l` -ge 1 ]
                         then
                                 echo "Service MySql = ON ||"
                         else
+                                echo "Please install MySql or start MySql now."
                                 echo "Service MySql = OFF ||"
                         fi
                 }
 function dockerz {
-                        if [ `systemctl status docker.service | grep 'running' | wc -l` -ge 1 ]
+                        if [ ` systemctl status docker.service | grep -q 'running' | wc -l` -ge 1 ]
                         then
                                 echo "Docker = ON ||"
                         else
@@ -93,6 +94,7 @@ function sshz  {
                         then
                                 echo "SSH = Opening ||"
                         else
+                                echo "Please install SSH or open SSH now."
                                 echo "SSH = Close ||"
                         fi
                 }
@@ -101,6 +103,7 @@ function cronz {
                         then
                                 echo "Service Cron = ON ||"
                         else
+                                echo "Please install Cron or open Cron now."
                                 echo "Service Cron = Close ||"
                         fi
                 }
@@ -111,3 +114,100 @@ function cronz {
 
 
 echo "________________________________________________________________"
+PS3="Choose 1..n : "
+opt1=("Update" "Upgrade" "Backup WordPress" "Check PHP Version" "Watch IP" "")
+        select menu1 in "${opt1[@]}"
+                do
+                        case $menu1 in
+                                "Update" )
+                                        if [`cat /etc/os-release | grep -q 'CentOS'`]
+                                        then
+                                                yum update -y
+                                                echo " Update CentOS complete !!"
+                                                sleep 2
+                                        elif [`cat /etc/os-release | grep -q 'Ubuntu'`]
+                                        then
+                                                apt-get update -y
+                                                echo " Update Ubuntu complete !!"
+                                                sleep2
+                                        else
+                                                echo "Error...404"
+                                                break
+                                        fi
+                                        ;;
+                                "Upgrade" )
+                                        if [`cat /etc/os-release | grep -q 'CentOS'`]
+                                        then
+                                                yum upgrade -y
+                                                echo " Update CentOS complete !!"
+                                                sleep 2
+                                        elif [`cat /etc/os-release | grep -q 'Ubuntu'`]
+                                        then
+                                                apt-get upgrade -y
+                                                echo " Update Ubuntu complete !!"
+                                                sleep2
+                                        else
+                                                echo "Error...404"
+                                                break
+                                        fi
+                                        ;;
+                                "Backup WordPress" )
+                                        function check {
+
+                                                cd /home/
+                                                ls=`ls -l | grep ^d | awk '{print $9}' | find * -type d -name 'public_html' | cut -d "/" -f 1`
+                                                PS3="Chose domain backup: "
+                                                        select domain in $ls; do
+                                                                 if [ -f $domain/public_html/wp-config.php ]
+                                                                then
+                                                                        break
+                                                                else
+                                                                        echo "Not found your Website running WordPress..."
+                                                                        sleep 2
+                                                                        exit
+                                                                fi
+                                                         done
+                                                        }
+                                        function bkdb {
+
+                                                cd /home/$domain/public_html/
+                                                if [ `ls -l | grep 'wp-config.php' | wc -l` -ge 1 ]
+                                                then
+                                                        db_name=`grep 'DB_NAME' wp-config.php | awk -F "'" '{print $4}'`
+                                                        db_user=`grep 'DB_USER' wp-config.php | awk -F "'" '{print $4}'`
+                                                        db_pass=`grep 'DB_PASS' wp-config.php | awk -F "'" '{print $4}'`
+                                                else
+                                                        echo "Not found your wp-config.php..."
+                                                                sleep 2
+                                                exit
+                                                fi
+                                                        mysqldump -u $db_user -p$db_pass $db_name > $domain-$tg.sql
+                                                        mv $domain-$tg.sql /home/bkup
+
+                                                if [ $? -eq 0 ]; then
+                                                        echo "Backup database successful"
+                                                else
+                                                        echo "Backup database fail"
+                                                        sleep 2; exit
+                                                fi
+                                                        }
+
+                                        function bkcode {
+
+                                                cd /home/$domain/public_html/
+                                                tar -czf $domain-$tg.tar.gz *
+                                                mv $domain-$tg.tar.gz /home/bkup
+                                                if [ $? -eq 0 ]; then
+                                                        echo "Backup code $domain successful"
+                                                else
+                                                        echo "Backup code $domain fail"
+                                                fi
+                                                        }
+                                                for true
+                                                do
+                                                        check
+                                                        bkdb
+                                                        bkcode
+                                                        menu1
+                                               done
+                                        ;;
