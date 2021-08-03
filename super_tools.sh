@@ -115,7 +115,7 @@ function cronz {
 
 echo "________________________________________________________________"
 PS3="Choose 1..n : "
-opt1=("Update" "Upgrade" "Backup WordPress" "Check PHP Version" "Watch IP" "")
+opt1=("Update" "Upgrade" "Backup WordPress" "Check PHP Version" "Watch IP request" "Exit")
         select menu1 in "${opt1[@]}"
                 do
                         case $menu1 in
@@ -223,9 +223,12 @@ opt1=("Update" "Upgrade" "Backup WordPress" "Check PHP Version" "Watch IP" "")
                                                 ls=`ls -l | grep ^d | awk '{print $9}' | find * -type d -name 'public_html' | cut -d "/" -f 1`
                                                 PS3="Chose domain backup: "
                                                         select domain in $ls; do
-                                                                 if [ -f $domain/public_html/ ]
+                                                                 if [ -d $domain/public_html/ ]
                                                                 then
-                                                                        break
+                                                                        continue
+                                                                elif [ -d $domain/DocumentRoot/ ]
+                                                                then
+                                                                        continue
                                                                 else
                                                                         echo "Not found your Website ..."
                                                                         sleep 2
@@ -243,6 +246,25 @@ opt1=("Update" "Upgrade" "Backup WordPress" "Check PHP Version" "Watch IP" "")
                                                 }
                                         check
                                         infoz
+                                        ;;
+                                        "Watch IP request" )
+                                        opt2=("http" "https")
+                                         select traffic2 in "${opt2[@]}"
+                                         do
+                                                case $traffic2 in
+                                                "http")
+                                                echo " Port 80 : "
+                                                watch "netstat -an | grep ':80' | awk '{print \$5}' | sed s/'::ffff:'// | cut -d\":\" -f1 | sort | uniq -c"
+                                        ;;
+                                                "https")
+                                                echo " Port 443 "
+                                                watch "netstat -an | grep ':443'| awk '{print \$5}' | sed s/'::ffff:'// | cut -d\":\" -f1 | sort | uniq -c"
+                                        ;;
+                                        esac
+                                        done
+                                        ;;
+                                        "Exit" )
+                                                exit
                                         ;;
                                 esac
                         done
