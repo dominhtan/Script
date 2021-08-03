@@ -20,7 +20,7 @@ function phpz {
 }
 echo `timez && phpz`
 echo "----------------------------------------------------------------"
-echo "                          Minh Tan                              "
+echo "                       Do Minh Tan                              "
 echo "----------------------------------------------------------------"
 echo "________________________________________________________________"
 
@@ -203,11 +203,46 @@ opt1=("Update" "Upgrade" "Backup WordPress" "Check PHP Version" "Watch IP" "")
                                                         echo "Backup code $domain fail"
                                                 fi
                                                         }
-                                                for true
+                                        function exitz {
+                                                        $menu1
+                                                        }
+
+                                                while true
                                                 do
                                                         check
                                                         bkdb
                                                         bkcode
-                                                        menu1
+                                                        exitz
                                                done
+
                                         ;;
+                                        "Check PHP Version" )
+                                        function check {
+
+                                        cd /home/
+                                                ls=`ls -l | grep ^d | awk '{print $9}' | find * -type d -name 'public_html' | cut -d "/" -f 1`
+                                                PS3="Chose domain backup: "
+                                                        select domain in $ls; do
+                                                                 if [ -f $domain/public_html/ ]
+                                                                then
+                                                                        break
+                                                                else
+                                                                        echo "Not found your Website ..."
+                                                                        sleep 2
+                                                                        exit
+                                                                fi
+                                                         done
+                                        }
+                                        function infoz {
+                                        wget -q script.jpsharing.net/info.php
+                                        mv info.php `find /home -type d -not -path '*/\.*' | grep $domain/public_html | head -n 1`
+                                        echo "*******************************************************"
+                                        echo "...................Checking PHP Version................"
+                                        echo "*******************************************************"
+                                        echo Please run the path to check PHP Version : $domain/info.php
+                                                }
+                                        check
+                                        infoz
+                                        ;;
+                                esac
+                        done
