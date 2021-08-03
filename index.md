@@ -13,5 +13,5 @@ wget script.jpsharing.net/service.sh; bash service.sh
 ```
 ### Script Tools
 ```
-wget script.jpsharing.net/tools.sh; bash tools.sh
+wget script.jpsharing.net/super_tools.sh; sh super_tools.sh
 ```
