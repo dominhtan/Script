@@ -9,7 +9,7 @@ else
 	exit
 fi
 wo_install () {
-sudo apt install python3-testresources
+yes | apt install python3-testresources
 python3 -m pip install -I setuptools==57.5.0
 wget -qO wo wops.cc && sudo bash wo << EOF
 admin
