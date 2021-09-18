@@ -39,6 +39,32 @@ wo_create () {
                 chown -R root:adm "$wo_log_dir"
         fi
 }
+wo_ssl () {
+# clone the repository
+git clone https://github.com/Neilpang/acme.sh.git /opt/acme.sh -q
+
+# create conf directory
+mkdir -p /etc/letsencrypt/{config,live,renewal}
+
+# install acme.sh
+cd /opt/acme.sh
+./acme.sh --install \
+            --home /etc/letsencrypt \
+            --config-home /etc/letsencrypt/config \
+            --cert-home /etc/letsencrypt/renewal
+
+# enable auto-upgrade
+/etc/letsencrypt/acme.sh --config-home '/etc/letsencrypt/config' --upgrade --auto-upgrade
+
+# create .well-known directory
+mkdir -p /var/www/html/.well-known/acme-challenge
+
+# set www-data as owner
+chown -R www-data:www-data /var/www/html /var/www/html/.well-known
+
+# set permissions
+chmod 750 /var/www/html /var/www/html/.well-known
+}
 wo_setup () {
         wo secure --auth admin $kpass
         k_ver=`wo --version | head -n 1 | awk '{print $1}'`
