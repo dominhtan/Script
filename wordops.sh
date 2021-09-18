@@ -9,8 +9,8 @@ else
 	exit
 fi
 wo_install () {
-	python3 -m pip install -I setuptools==57.5.0
-	wget -qO wo wops.cc && sudo bash wo << EOF
+python3 -m pip install -I setuptools==57.5.0
+wget -qO wo wops.cc && sudo bash wo << EOF
 admin
 thitgaluoc_98@yahoo.com.vn
 EOF
@@ -85,7 +85,7 @@ PHPAdmin login:
 [Weblink]   https://$ipa:22222/db/pma/
 [Account]   root
 [Pass   ]   $k_passroot
-Service :
+Service : 
 $service
 ==================================================
 EOF
