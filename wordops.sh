@@ -96,4 +96,5 @@ EOF
 wo_install
 wo_update
 wo_create
+wo_ssl
 wo_setup
