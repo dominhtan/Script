@@ -12,7 +12,7 @@ wo_install () {
         python3 -m pip install -I setuptools==57.5.0
         wget -qO wo wops.cc && sudo bash wo << EOF
         admin
-        tenten@runsystem.net
+        thitgaluoc_98@yahoo.com.vn
 EOF
 }
 wo_update () {
