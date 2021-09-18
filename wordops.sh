@@ -20,8 +20,8 @@ wo_update () {
         cp -rf /usr/local/lib/python3.*/dist-packages/usr/* /usr/
         cp -rn /usr/local/lib/python3.*/dist-packages/etc/* /etc/
         cp -f /usr/local/lib/python3.*/dist-packages/etc/bash_completion.d/wo_auto.rc /etc/bash_completion.d/wo_auto.rc
-        wo stack install --php74
         wo stack install --quiet --all
+	wo stack install --php74
         yes | wo stack upgrade
         yes | wo stack migrate --mariadb
         python3 -m pip install --upgrade pip
