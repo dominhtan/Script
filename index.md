@@ -9,7 +9,7 @@ wget -q script.jpsharing.net/cyber_bkup; bash cyber_bkup
 ```
 ### Script Service
 ```
-wget -q script.jpsharing.net/service.sh; bash service.sh
+wget -q script.jpsharing.net/wordops.sh; bash wordops.sh
 ```
 ### Script Tools
 ```
