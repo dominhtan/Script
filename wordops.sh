@@ -28,9 +28,6 @@ wo_update () {
 }
 wo_create () {
         find /etc/wo/ -type f -name "wo.conf" | xargs sed -i -e 's/7.3/7.4/g'
-        cp -rf /usr/local/lib/python3.*/dist-packages/usr/* /usr/
-        cp -rn /usr/local/lib/python3.*/dist-packages/etc/* /etc/
-        cp -f /usr/local/lib/python3.*/dist-packages/etc/bash_completion.d/wo_auto.rc /etc/bash_completion.d/wo_auto.rc
         wo_log_dir=/var/log/wo
         wo_backup_dir=/var/lib/wo-backup
         wo_tmp_dir=/var/lib/wo/tmp
