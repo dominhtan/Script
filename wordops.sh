@@ -67,7 +67,7 @@ chmod 750 /var/www/html /var/www/html/.well-known
 }
 wo_setup () {
         wo secure --auth admin $kpass
-        k_ver=`wo --version | head -n 1 | awk '{print $1}'`
+        k_ver=`wo --version | head -n 1`
         k_passroot=`cat /etc/mysql/conf.d/my.cnf | tail -n 2 | awk '{print $3}'`
         service=`wo stack status`
         cat <<EOF > /etc/motd
