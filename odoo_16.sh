@@ -3,7 +3,7 @@ sudo adduser --system --quiet --shell=/bin/bash --home=/opt/odoo --gecos 'odoo' 
 sudo mkdir /etc/odoo && mkdir /var/log/odoo/
 sudo apt-get update && apt-get upgrade -y && apt-get install postgresql postgresql-server-dev-12 build-essential python3-pillow python3-lxml python3-dev python3-pip python3-setuptools npm nodejs git gdebi libldap2-dev libsasl2-dev  libxml2-dev libxslt1-dev libjpeg-dev -y
 sudo service postgresql restart
-git clone --depth=1 --branch=13.0 https://github.com/odoo/odoo.git /opt/odoo/odoo
+git clone --depth=1 --branch=16.0 https://github.com/odoo/odoo.git /opt/odoo/odoo
 sudo chown odoo:odoo /opt/odoo/ -R && sudo chown odoo:odoo /var/log/odoo/ -R && cd /opt/odoo/odoo && sudo pip3 install -r requirements.txt
 sudo npm install -g less less-plugin-clean-css rtlcss -y
 cd /tmp && wget https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.bionic_amd64.deb && sudo gdebi -n wkhtmltox_0.12.5-1.bionic_amd64.deb && rm wkhtmltox_0.12.5-1.bionic_amd64.deb
