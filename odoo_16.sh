@@ -4,7 +4,6 @@ sudo mkdir /etc/odoo && mkdir /var/log/odoo/
 
 # Run the apt-get command with automatic yes response (-y)
 sudo apt-get update && sudo apt-get install postgresql postgresql-server-dev-all python3-pil python3-lxml python3-dev python3-pip python3-setuptools npm nodejs git gdebi libldap2-dev libsasl2-dev libxml2-dev libxslt1-dev libjpeg-dev python3-pip python3 zlib1g-dev build-essential libssl-dev libffi-dev libmysqlclient-dev libpq-dev libjpeg8-dev liblcms2-dev libblas-dev libatlas-base-dev gdebi-core -y
-
 #
 sudo service postgresql restart
 git clone --depth=1 --branch=16.0 https://github.com/odoo/odoo.git /opt/odoo/odoo
