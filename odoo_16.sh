@@ -22,3 +22,4 @@ sudo cp /opt/odoo/odoo/debian/init /etc/init.d/odoo && chmod +x /etc/init.d/odoo
 sudo update-rc.d -f odoo start 20 2 3 4 5 .
 sudo service odoo restart
 ufw disable
+echo "Login IP: `curl ifconfig.me`:8069"
