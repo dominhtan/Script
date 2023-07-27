@@ -1,5 +1,6 @@
 #!/bin/bash
 #Setup Odoo version 16 with Ubuntu 22.2
+apt update -y
 sudo adduser --system --quiet --shell=/bin/bash --home=/opt/odoo --gecos 'odoo' --group odoo
 sudo mkdir /etc/odoo && mkdir /var/log/odoo/
 
