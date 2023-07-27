@@ -1,10 +1,10 @@
 #!/bin/bash
 #Setup Odoo version 16 with Ubuntu 22.2
-apt update -y
 sudo adduser --system --quiet --shell=/bin/bash --home=/opt/odoo --gecos 'odoo' --group odoo
 sudo mkdir /etc/odoo && mkdir /var/log/odoo/
-sudo apt-get update && apt-get upgrade -y && apt-get install postgresql postgresql-server-dev-12 build-essential python3-pil python3-lxml python3-dev python3-pip python3-setuptools npm nodejs git gdebi libldap2-dev libsasl2-dev libxml2-dev libxslt1-dev libjpeg-dev -y
-sudo apt-get install postgresql postgresql-server-dev-all -y
+apt-get update 
+apt-get install postgresql postgresql-server-dev-12 build-essential python3-pil python3-lxml python3-dev python3-pip python3-setuptools npm nodejs git gdebi libldap2-dev libsasl2-dev libxml2-dev libxslt1-dev libjpeg-dev -y
+apt-get install postgresql postgresql-server-dev-all -y
 python3 -m pip install wheel setuptools pip --upgrade
 sudo service postgresql restart
 git clone --depth=1 --branch=16.0 https://github.com/odoo/odoo.git /opt/odoo/odoo
